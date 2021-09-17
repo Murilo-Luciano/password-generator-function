@@ -22,23 +22,8 @@ function passwordGenerator(
     hasSymbols: false,
   }
 ) {
-  let possibility = range(33, 127);
-
-  if (options.hasNumber === false) {
-    possibility = removePossibilities(possibility, range(48, 58));
-  }
-  if (options.hasLowercase === false) {
-    possibility = removePossibilities(possibility, range(97, 123));
-  }
-  if (options.hasUppercase === false) {
-    possibility = removePossibilities(possibility, range(65, 91));
-  }
-  if (options.hasSymbols === false) {
-    possibility = removePossibilities(possibility, range(33, 48));
-    possibility = removePossibilities(possibility, range(58, 65));
-    possibility = removePossibilities(possibility, range(91, 97));
-    possibility = removePossibilities(possibility, range(123, 127));
-  }
+  // let possibility = range(33, 127);
+  const possibility = handleOptions(range(33, 127), options);
 
   function charGenerator(): string {
     const char = String.fromCharCode(
@@ -106,6 +91,8 @@ function handleOptions(possibility: number[], options: OptionProps) {
       (range) => (possibility = removePossibilities(possibility, range))
     );
   }
+
+  return possibility;
 }
 
 for (let i = 0; i < 20; i++) {
