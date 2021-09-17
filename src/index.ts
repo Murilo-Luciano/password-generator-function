@@ -19,7 +19,7 @@ function passwordGenerator(
     hasNumber: true,
     hasUppercase: true,
     hasLowercase: true,
-    hasSymbols: true,
+    hasSymbols: false,
   }
 ) {
   let possibility = range(33, 127);
@@ -82,6 +82,30 @@ function range(start: number, stop?: number, step?: number) {
 
 function removePossibilities(possibility: number[], removeOptions: number[]) {
   return possibility.filter((element) => removeOptions.indexOf(element) == -1);
+}
+
+function handleOptions(possibility: number[], options: OptionProps) {
+  const symbolRanges = [
+    range(33, 48),
+    range(58, 65),
+    range(91, 97),
+    range(123, 127),
+  ];
+
+  if (options.hasNumber === false) {
+    possibility = removePossibilities(possibility, range(48, 58));
+  }
+  if (options.hasLowercase === false) {
+    possibility = removePossibilities(possibility, range(97, 123));
+  }
+  if (options.hasUppercase === false) {
+    possibility = removePossibilities(possibility, range(65, 91));
+  }
+  if (options.hasSymbols === false) {
+    symbolRanges.forEach(
+      (range) => (possibility = removePossibilities(possibility, range))
+    );
+  }
 }
 
 for (let i = 0; i < 20; i++) {
