@@ -13,14 +13,16 @@ interface OptionProps {
   hasSymbols: boolean;
 }
 
+const initialOptions = {
+  hasNumber: true,
+  hasUppercase: true,
+  hasLowercase: true,
+  hasSymbols: true,
+};
+
 function passwordGenerator(
   length: number,
-  options: OptionProps = {
-    hasNumber: true,
-    hasUppercase: true,
-    hasLowercase: true,
-    hasSymbols: false,
-  }
+  options: OptionProps = initialOptions
 ) {
   // let possibility = range(33, 127);
   const possibility = handleOptions(range(33, 127), options);
